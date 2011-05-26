@@ -1,0 +1,16 @@
+﻿{
+"name": "豆瓣电台爬虫",
+"version": "1.0",
+"description": "自动抓取豆瓣电台加星歌曲的列表",
+"icons": {
+  "32": "douban.png",
+  "48": "douban.png",
+  "128": "douban.png"
+  },
+"browser_action": {
+  "default_title": "豆瓣电台爬虫",
+  "default_icon": "douban.png"
+  },
+  "background_page": "background.html",
+  "permissions": ["tabs", "*://*/*", "notifications"]
+}

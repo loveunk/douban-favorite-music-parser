@@ -1,0 +1,26 @@
+﻿<html>
+<head>
+	<style type="text/css">
+    body, table, tr, td{
+      font-size:10px;
+      font-family:Arial, Helvetica;
+      color:#5A5A5A;
+    }
+  </style>
+  <script>
+    function openDouban() {
+    	 chrome.extension.getBackgroundPage().musics = null;
+    	 chrome.extension.getBackgroundPage().musics = new Array();
+    	 chrome.extension.getBackgroundPage().resetDate(true);
+      chrome.tabs.create({"url":"http://douban.fm/mine?type=liked", "selected":true});
+    }
+  </script>
+</head>
+<body>
+<div id="parseHTML"></div>
+点击--><input type="button" onclick="openDouban()" value="开始抓取"><br>
+<pre>
+如果您有几百，几千首加星歌曲，您可能需要等待几分钟的时间。
+</pre>
+</body>
+</html>
