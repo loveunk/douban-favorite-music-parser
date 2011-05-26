@@ -1,4 +1,22 @@
-﻿<html>
+﻿<!--
+show the result to user
+
+Copyright (C) 2011  Wen Qi <qiwen@qiwen.name>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
 <head>
   <style type="text/css">
     body, table, tr, td{
@@ -11,24 +29,52 @@
     }
   </style>
   <script>
-    function getResult() {
+  	function getOnlyMusicName() {
+  		var musics = chrome.extension.getBackgroundPage().musics;
+      var html  = '<tr><td class="mn">歌曲名</td></tr>';
+      for (var i = 0; i < musics.length; ++i) {
+        html += '<tr><td class="mn">'+musics[i][0]+'</td></tr>';
+      }
+      document.getElementById("result").innerHTML = html;
+  	}
+ 
+    function getFullResult() {
       var musics = chrome.extension.getBackgroundPage().musics;
       var html  = '<tr><td class="mn">歌曲名</td>';
           html += '<td class="zn">专辑名</td>';
           html += '<td class="zz">歌手名</td>';
-          html += '<td class="id">歌曲ID</td></tr>';
+          //html += '<td class="id">歌曲ID</td></tr>';
+          html += '</tr>';
       for (var i = 0; i < musics.length; ++i) {
         html += '<tr><td class="mn">'+musics[i][0]+'</td>';
         html += '<td class="zn"><a href="'+musics[i][1]+'">'+musics[i][2]+'</a></td>';
         html += '<td class="zz">'+musics[i][3]+'</td>';
-        html += '<td class="id">'+musics[i][4]+'</td></tr>';
+        //html += '<td class="id">'+musics[i][4]+'</td>';
+        html += '</tr>';
       }
       document.getElementById("result").innerHTML = html;
+    }
+
+    function onPageLoaded() {
+    	var musics = chrome.extension.getBackgroundPage().musics;
+    	if (musics.length == 0) {
+    		html = '<h1>没有抓取到歌曲呀&nbsp:(&nbsp, 是不是您没有<a href="http://douban.fm">登录豆瓣电台</a>？</h1><br>';
+    		html += '或者程序出错了，Bug! a big Bug ??! 如果您确认是程序的问题，欢迎Google Code<a href="https://code.google.com/p/douban-favorite-music-parser">提交问题</a>..';
+    	}
+    	else {
+    		html  = '恭喜您，抓取成功啦! 共<strong>' + musics.length + '</strong>首歌曲 :)';
+    		html += '&nbsp;&nbsp;&nbsp;&nbsp;猛点这里 -->&nbsp;&nbsp;';
+    		html += '<input type="button" value="仅获取歌曲名列表" onclick="getOnlyMusicName()" />';
+				html += '<input type="button" value="获取歌曲详细列表" onclick="getFullResult()" />';
+    	}
+    	document.getElementById("hint").innerHTML = html;
+    	getOnlyMusicName();
     }
   </script>
 </head>
 
-<body onload="getResult()">
+<body onload="onPageLoaded()">
+<div id="hint" align="center"></div>
 <table id="result"></table>
 </body>
 </html>
