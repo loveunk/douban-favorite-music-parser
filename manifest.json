@@ -1,6 +1,6 @@
 ﻿{
 "name": "豆瓣电台爬虫",
-"version": "1.1",
+"version": "11.10.31",
 "description": "自动抓取豆瓣电台加星歌曲的列表",
 "icons": {
   "32": "douban.png",

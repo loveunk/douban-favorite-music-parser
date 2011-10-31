@@ -29,27 +29,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     }
   </style>
   <script>
-  	function getOnlyMusicName() {
-  		var musics = chrome.extension.getBackgroundPage().musics;
+    function getOnlyMusicName() {
+      var musics = chrome.extension.getBackgroundPage().musics;
       var html  = '<tr><td class="mn">歌曲名</td></tr>';
       for (var i = 0; i < musics.length; ++i) {
         html += '<tr><td class="mn">'+musics[i][0]+'</td></tr>';
       }
       document.getElementById("result").innerHTML = html;
-  	}
+    }
  
     function getFullResult() {
       var musics = chrome.extension.getBackgroundPage().musics;
-      var html  = '<tr><td class="mn">歌曲名</td>';
+      var html  = '<tr>';
+	  html += '<td class="mn">歌曲名</td>';
           html += '<td class="zn">专辑名</td>';
           html += '<td class="zz">歌手名</td>';
-          //html += '<td class="id">歌曲ID</td></tr>';
+        //html += '<td class="id">歌曲ID</td></tr>';
           html += '</tr>';
       for (var i = 0; i < musics.length; ++i) {
         html += '<tr><td class="mn">'+musics[i][0]+'</td>';
         html += '<td class="zn"><a href="'+musics[i][1]+'">'+musics[i][2]+'</a></td>';
         html += '<td class="zz">'+musics[i][3]+'</td>';
-        //html += '<td class="id">'+musics[i][4]+'</td>';
+      //html += '<td class="id">'+musics[i][4]+'</td>';
         html += '</tr>';
       }
       document.getElementById("result").innerHTML = html;
