@@ -31,12 +31,12 @@ function getElementsByClass( searchClass, domNode, tagName) {
   return el;
 }
 
-var totalLike = getElementsByClass("songs_tabs", document.getElementById("content"));
-var ipt = document.getElementsByTagName("tbody");
-if (ipt.length && totalLike.length) {
+var totalLike = getElementsByClass("current", document.getElementById("navigation"));
+var ipt = document.getElementById("record_viewer");
+if (totalLike.length) {
   var additionalInfo = {
     "totalLike": totalLike[0].innerHTML,
-    "selection": ipt[0].innerHTML
+    "selection": ipt.innerHTML
   };
 }
 else {

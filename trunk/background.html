@@ -25,12 +25,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     var musics = new Array();
 
-		function resetDate(startOrNot) {
-			nextStartNum = 0;
-	    likeNum = 0;
-	    parseStart = 0;
-	    started = startOrNot;
-		}
+    function resetDate(startOrNot) {
+      nextStartNum = 0;
+      likeNum = 0;
+      parseStart = 0;
+      started = startOrNot;
+    }
 
     function addMore(startFrom, mArr) {
       var len = musics.length;
@@ -90,31 +90,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             likeNum = new Number(numStr[0]);
           }
           if (numStr == null || numStr.length == 0 || likeNum == 0) {
-            	//showNotification("Error", "您好像没有登录豆瓣电台呀... :(");
+            	//showNotification("Error", info.totalLike + " 您好像没有登录豆瓣电台呀... :(");
             	//chrome.tabs.create({"url":"http://www.douban.com/accounts/login?source=radio&uid=&error=requiredemail"});
           }
         }
-        // showNotification(parseStart + " " + likeNum, "");//info.selection);
+        //showNotification(parseStart + " " + likeNum, "");//info.selection);
         parseHtml(tab, info.selection);
       });
     }
 
+    function getElementsByClass(searchClass, domNode, tagName) { 
+      if (domNode == null) domNode = document;
+      if (tagName == null) tagName = '*';
+      var el = new Array();
+      var tags = domNode.getElementsByTagName(tagName);
+      var tcl = " "+searchClass+" ";
+      for(i=0,j=0; i<tags.length; i++) { 
+	var test = " " + tags[i].className + " ";
+	if (test.indexOf(tcl) != -1) 
+	  el[j++] = tags[i];
+      }
+      return el;
+    }
+
     function parseHtml(tab, s) { // it's callback of background parser script
-      var div = document.createElement('table');
+      var div = document.createElement('div');
       var pageMusics = new Array();
       div.innerHTML = s;
       
-      var tr = div.getElementsByTagName('tr');
+      var tr = getElementsByClass("info_wrapper", div);
     
       if (tr) {
         for (var i = 0; i < tr.length; ++i) {
-          var td = tr[i].getElementsByTagName('td');
+          var td = tr[i];
           var m = new Array();
-          m[0] = td[0].innerText;
-          m[1] = td[1].getElementsByTagName('a')[0].href;
-          m[2] = td[1].getElementsByTagName('a')[0].innerText;
-          m[3] = td[1].getElementsByTagName('span')[0].innerText;
-          m[4] = td[2].getElementsByTagName('a')[0].id;
+	  var musicName = getElementsByClass("song_title", td);
+	  var source = td.getElementsByTagName('a');
+	  var performer = getElementsByClass("performer", td);
+	  var action = getElementsByClass('action', td);
+          m[0] = musicName[0].innerText; //歌曲名
+          m[1] = source[1].href;      //专辑URL
+          m[2] = source[1].innerText; //专辑名
+          m[3] = performer[0].innerText; //歌手名
+          m[4] = action[0].sid; //Music ID
           pageMusics[i] = m;
         }
       }
