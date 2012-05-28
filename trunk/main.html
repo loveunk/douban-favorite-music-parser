@@ -1,7 +1,7 @@
-﻿<!--
+<!--
 show a popup page when user click the extension icon
 
-Copyright (C) 2011  Wen Qi <qiwen@qiwen.name>
+Copyright (C) 2012  Wen Qi <qiwen@qiwen.name>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,30 +17,54 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <html>
-<head>
-	<style type="text/css">
-    body, table, tr, td{
-      font-size:10px;
-      font-family:Arial, Helvetica;
-      color:#5A5A5A;
-    }
-  </style>
-  <script>
-    function openDouban() {
-    	 chrome.extension.getBackgroundPage().musics = null;
-    	 chrome.extension.getBackgroundPage().musics = new Array();
-    	 chrome.extension.getBackgroundPage().resetDate(true);
-      chrome.tabs.create({"url":"http://douban.fm/mine?type=liked", "selected":true});
-    }
-  </script>
-</head>
-<body>
-<div id="parseHTML"></div>
-点击--><input type="button" onclick="openDouban()" value="抓取加星歌曲"><br>
-<pre>
-注意: 
-如果您有几百，几千首加星歌曲，您可能需要等待几分钟的时间。
-抓取的过程中，浏览器会有闪动的情况，请耐心等待..
-</pre>
-</body>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>欢迎使用</title>
+    <style type="text/css">
+      body {
+        margin: 10px auto 5px auto;
+        width:  390px;
+        vertical-align: middle;
+        color:  #666;
+        font: 110% Arial, Helvetica, sans-serif;
+        background: #E8ECEC;
+      }
+      
+      input {
+        cursor: pointer;
+        color: 
+        white;
+        background: 
+        #3FA156;
+        border: 1px solid 
+        #528641;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 6px 26px;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+      }
+      
+      div {
+        margin: 10px 0 5px 0;
+      }
+    </style>
+    <script>
+      function openDouban() {
+        chrome.extension.getBackgroundPage().musics = null;
+        chrome.extension.getBackgroundPage().musics = new Array();
+        chrome.extension.getBackgroundPage().resetDate(true);
+        chrome.tabs.create({"url":"http://douban.fm/mine?type=liked", "selected":true});
+      }
+    </script>
+  </head>
+  <body>
+    <div id="parseHTML"></div>
+    
+    <input type="button" onclick="openDouban()" value="抓取加星歌曲"><br><br>
+    
+    <div>抓取的过程中，浏览器会闪烁，属于正常现象。</div>
+    <div>如果歌曲较多，需要等待几分钟的时间。</div>
+  </body>
 </html>

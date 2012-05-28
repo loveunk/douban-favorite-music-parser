@@ -1,7 +1,7 @@
 ﻿<!--
 used to control the main flow of parsing
 
-Copyright (C) 2011  Wen Qi <qiwen@qiwen.name>
+Copyright (C) 2012  Wen Qi <qiwen@qiwen.name>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         nextStartNum = -1;
       }
     }
-    
+
     function isDoubanMusicLikeHome(url) {
       var pattern = /^http:\/\/douban\.fm\/mine\?&type=liked(.*)$/;
       if (url.match(pattern)) {
@@ -106,12 +106,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       var tags = domNode.getElementsByTagName(tagName);
       var tcl = " "+searchClass+" ";
       for(i=0,j=0; i<tags.length; i++) { 
-	var test = " " + tags[i].className + " ";
-	if (test.indexOf(tcl) != -1) 
-	  el[j++] = tags[i];
-      }
-      return el;
-    }
+			var test = " " + tags[i].className + " ";
+				if (test.indexOf(tcl) != -1) 
+					el[j++] = tags[i];
+				}
+				return el;
+			}
 
     function parseHtml(tab, s) { // it's callback of background parser script
       var div = document.createElement('div');
@@ -124,10 +124,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         for (var i = 0; i < tr.length; ++i) {
           var td = tr[i];
           var m = new Array();
-	  var musicName = getElementsByClass("song_title", td);
-	  var source = td.getElementsByTagName('a');
-	  var performer = getElementsByClass("performer", td);
-	  var action = getElementsByClass('action', td);
+					var musicName = getElementsByClass("song_title", td);
+					var source = td.getElementsByTagName('a');
+					var performer = getElementsByClass("performer", td);
+					var action = getElementsByClass('action', td);
           m[0] = musicName[0].innerText; //歌曲名
           m[1] = source[1].href;      //专辑URL
           m[2] = source[1].innerText; //专辑名
@@ -146,13 +146,46 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       } else {
         resetDate(false);
         chrome.tabs.remove(tab.id, function(){
-          	chrome.tabs.create({"url":"options.html"});
+          	chrome.tabs.create({"url":"result.html"});
         });
       }
     }
-
+  
+    function checkFirstTime() {
+      if (localStorage["_douban_music_parser_firstTime"] == undefined) {
+			localStorage["_douban_music_parser_firstTime"] = ":]";
+			openOptions(true);
+			return true;
+      }
+      return false;
+    }
+    
+    function openOptions(firstTime) {
+      var url = "thanks_page.html";
+  
+      var fullUrl = chrome.extension.getURL(url);
+      chrome.tabs.getAllInWindow(null, function(tabs) {
+				for (var i in tabs) { // check if Options page is open already
+					var tab = tabs[i];
+					if (tab.url == fullUrl) {
+						chrome.tabs.update(tab.id, { selected: true }); // select the tab
+						return;
+					}
+				}
+				chrome.tabs.getSelected(null, function(tab) { // open a new tab next to currently selected tab
+					chrome.tabs.create({
+						url: url,
+						index: tab.index + 1
+					});
+				});
+      });
+    }
+  
     chrome.browserAction.onClicked.addListener(startParse);
     chrome.extension.onConnect.addListener(messageListener);
     chrome.tabs.onCreated.addListener(pageLoaded);
+
+    checkFirstTime();
+
   </script>
 </html>
