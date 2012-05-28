@@ -1,16 +1,17 @@
 ﻿{
-"name": "豆瓣电台爬虫",
-"version": "11.10.31",
-"description": "自动抓取豆瓣电台加星歌曲的列表",
-"icons": {
-  "32": "douban.png",
-  "48": "douban.png",
-  "128": "douban.png"
+  "name": "豆瓣电台爬虫（加星歌曲列表导出）",
+  "version": "12.5.24.0",
+  "description": "自动抓取 豆瓣电台加星歌曲，并提供列表导出功能",
+  "icons": {
+    "32": "douban.png",
+    "48": "douban.png",
+    "128": "douban.png"
   },
-"browser_action": {
-  "default_title": "豆瓣电台爬虫",
-  "default_icon": "douban.png"
+  "browser_action": {
+    "default_title": "豆瓣电台爬虫（加星歌曲列表导出）",
+    "default_icon": "douban.png"
   },
   "background_page": "background.html",
+  "options_page": "thanks_page.html",
   "permissions": ["tabs", "*://*.douban.com/*", "*://douban.fm/*", "notifications"]
 }

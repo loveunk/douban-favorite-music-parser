@@ -1,0 +1,161 @@
+﻿<!--
+show the result to user
+
+Copyright (C) 2012  Wen Qi <qiwen@qiwen.name>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>抓取结果</title>
+    <style type="text/css" title="currentStyle">
+			@import "main.css";
+			@import "media/css/demo_page.css";
+			@import "media/css/demo_table.css";
+      @import "media/css/TableTools.css";
+		</style>
+    <script type="text/javascript" language="javascript" src="media/js/jquery.js"></script>
+    <script type="text/javascript" language="javascript" src="utility.js"></script>
+    <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="media/js/TableTools.min.js"></script>
+    <script>  
+      function getFullResult() {
+        var musics = chrome.extension.getBackgroundPage().musics;
+        var html  = '';
+        
+        for (var i = 0; i < musics.length; ++i) {
+          html += '<tr><td>'+musics[i][0]+'</td>';
+          html += '<td><a href="'+musics[i][1]+'">'+musics[i][2]+'</a></td>';
+          html += '<td>'+musics[i][3]+'</td>';
+          html += '</tr>';
+        }
+        document.getElementById("table_result").innerHTML = html;
+      }
+
+      function onPageLoaded() {
+        var musics = chrome.extension.getBackgroundPage().musics;
+        //var musics = testData();
+
+        if (musics.length == 0) {
+          showDiv("succ", false);
+          showDiv("fail", true);
+        }
+        else {
+          document.getElementById("music_num").innerHTML = musics.length;
+          showDiv("succ", true);
+          showDiv("fail", false);
+        }
+
+        // show full result by default
+        getFullResult();
+        
+        $("#result").dataTable({
+          "bPaginate": false,
+          "bAutoWidth": false,
+          "bFilter": false,
+          "bInfo": false,
+          "aaSorting": [
+            [2, "asc"]
+          ]
+        });
+      }
+      
+      function fnShowHide() {
+        /* Get the DataTables object again - this is not a recreation, just a get of the object */
+        var oTable = $("#result").dataTable();
+        
+        if ($("#chooseCol").attr('value') == "仅歌曲名") {
+          $("#chooseCol").attr('value', "所有内容");
+        } else {
+          $("#chooseCol").attr('value', "仅歌曲名");
+        }
+        oTable.fnSetColumnVis( 1, oTable.fnSettings().aoColumns[1].bVisible ? false : true );
+        oTable.fnSetColumnVis( 2, oTable.fnSettings().aoColumns[2].bVisible ? false : true );
+      }
+      
+			function popResult() {
+				var musics = chrome.extension.getBackgroundPage().musics;
+				var html  = '';
+        
+        for (var i = 0; i < musics.length; ++i) {
+          html += musics[i][0]+'\t';
+          html += musics[i][2]+'\t';
+          html += musics[i][3]+'\t';
+          html += '\n';
+        }
+				
+				//height=250, width=250,
+				var popup = window.open("", "newwin", "toolbar=no,scrollbars=yes,menubar=no");
+				popup.document.write("<html>");
+				popup.document.write("<head>");
+				popup.document.write("<title>请复制<\/title>");
+				popup.document.write("<style type='text\/css' title='currentStyle'>@import \"main.css\";<\/style>");
+				popup.document.write("<script type='text\/javascript' language='javascript' src='utility.js'><\/script>");
+				popup.document.write("<\/head>");
+				popup.document.write("<body");
+				popup.document.write("<p>请复制下面的内容，之后导出到Excel或者记事本等文本编辑器中<\/p>");
+				popup.document.write("<textarea id='music_data' style='width:100%; height:90%;'>" + html + "<\/textarea>");
+				popup.document.write("<\/body>");
+				popup.document.write("<\/html>"); 
+				popup.document.close();
+      }
+    </script>
+  </head>
+  
+  <body onload="onPageLoaded()">
+    <div class="logo">
+      <a href="http://douban.fm"><img width="131" height="54" src="fm_logoV1.png"></a>
+    </div>
+    <div id="hint" align="left">
+      <div id="succ" class="hide">
+        <div>
+          <h2>共找到<strong id="music_num"></strong>首歌曲</h2>
+        </div>
+        <p>
+          使用中遇到任何问题，欢迎联系作者 <a href="http://weibo.com/cnqiwen" target="_blank">@齐文</a> 寻求帮助）
+        </p>
+        
+        <p>
+          <input type="button" class="resultButton" value="仅歌曲名" onclick="fnShowHide()" id="chooseCol" />
+          <input type="button" class="resultButton" value="导出数据" onclick="popResult()" /> <!-- selectElementContents('table_result')" -->
+          (导出到Excel或者文本中；
+          结合<a href="https://www.google.com.hk/search?hl=zh-CN&newwindow=1&q=E音乐盒&oq=E音乐盒" target="_blank">E音乐盒</a>，批量下载)
+        </p>
+
+        <table id="result"> <!-- style="width:100%"> -->
+          <thead>
+            <tr>
+              <th>歌曲名</th>
+              <th>专辑名</th>
+              <th>歌手名</th>
+            </tr>
+          </thead>
+          <tbody id="table_result">
+          </tbody>
+        </table>
+      </div>
+      <div id="fail" class="hide">
+        <h2>很遗憾，没有找到您收藏的歌曲 :(</h2>
+
+        <h4>有如下的可能哦 :</h4>
+
+        <div>1. 您没登录豆瓣电台（请<a href="http://douban.fm">登录</a>后重试）</div>
+        <br>
+
+        <div>2. 程序出错了。（欢迎联系作者 <a href="https://weibo.com/cnqiwen">@齐文</a> 寻求帮助）</div>
+      </div>
+    </div>
+  </body>
+</html>

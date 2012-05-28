@@ -1,7 +1,7 @@
 ﻿/*
 used to get HTML code(music information) from douban.com, and send message to background.html
 
-Copyright (C) 2011  Wen Qi <qiwen@qiwen.name>
+Copyright (C) 2012  Wen Qi <qiwen@qiwen.name>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
