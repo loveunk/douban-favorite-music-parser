@@ -50,20 +50,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         margin: 10px 0 5px 0;
       }
     </style>
-    <script>
-      function openDouban() {
-        chrome.extension.getBackgroundPage().musics = null;
-        chrome.extension.getBackgroundPage().musics = new Array();
-        chrome.extension.getBackgroundPage().resetDate(true);
-        chrome.tabs.create({"url":"http://douban.fm/mine?type=liked", "selected":true});
-      }
-    </script>
+    <script src="main.js"></script>
   </head>
   <body>
     <div id="parseHTML"></div>
-    
-    <input type="button" onclick="openDouban()" value="抓取加星歌曲"><br><br>
-    
+    <input type="button" value="抓取加星歌曲"><br><br>    
     <div>抓取的过程中，浏览器会闪烁，属于正常现象。</div>
     <div>如果歌曲较多，需要等待几分钟的时间。</div>
   </body>
