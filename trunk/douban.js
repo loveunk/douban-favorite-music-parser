@@ -31,18 +31,39 @@ function getElementsByClass( searchClass, domNode, tagName) {
   return el;
 }
 
-var totalLike = getElementsByClass("current", document.getElementById("navigation"));
-var ipt = document.getElementById("record_viewer");
-if (totalLike.length) {
-  var additionalInfo = {
-    "totalLike": totalLike[0].innerHTML,
-    "selection": ipt.innerHTML
-  };
+function getContentAndPost() {
+  var totalLike = document.getElementById("nav_liked").innerText;
+  var record_viewer = document.getElementById("record_viewer");
+    
+  var additionalInfo;
+  if (totalLike.length) {
+    additionalInfo = {"totalLike": totalLike, "musics": []};
+  } else {
+    additionalInfo = {"totalLike": "No..", "musics": "No.."};
+  }
+
+  if (record_viewer.innerText.length <= 10) {
+    setTimeout(getContentAndPost, 500);
+  } else {
+    var props = getElementsByClass("props", record_viewer);
+    if (props) {
+      for (var i = 0; i < props.length; ++i) {
+        var prop = props[i];
+        var musicName = getElementsByClass("song_title", prop);
+        var performer = getElementsByClass("performer", prop);
+        var source    = prop.getElementsByTagName("a");
+        var sourceURL = source[0].href;
+        var sourceName = source[0].innerText;
+        additionalInfo.musics.push({
+                                   "musicName" : musicName[0].innerText,
+                                   "sourceURL" : sourceURL,
+                                   "sourceName": sourceName,
+                                   "performer" : performer[0].innerText
+                                   });
+      }
+    }
+    chrome.extension.connect().postMessage(additionalInfo);
+  }
 }
-else {
-  var additionalInfo = {
-    "totalLike": "No..",
-    "selection": "No.."
-  };
-}
-chrome.extension.connect().postMessage(additionalInfo);
+
+getContentAndPost();
