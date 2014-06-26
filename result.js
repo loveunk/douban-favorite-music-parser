@@ -22,9 +22,9 @@ function getFullResult() {
   var html  = '';
   
   for (var i = 0; i < musics.length; ++i) {
-    html += '<tr><td>'+musics[i][0]+'</td>';
-    html += '<td><a href="'+musics[i][1]+'">'+musics[i][2]+'</a></td>';
-    html += '<td>'+musics[i][3]+'</td>';
+    html += '<tr><td>'+musics[i].musicName+'</td>';
+    html += '<td><a href="'+musics[i].sourceURL+'">'+musics[i].sourceName+'</a></td>';
+    html += '<td>'+musics[i].performer+'</td>';
     html += '</tr>';
   }
   document.getElementById("table_result").innerHTML = html;
@@ -75,9 +75,9 @@ function popResult() {
   var html  = '';
   
   for (var i = 0; i < musics.length; ++i) {
-    html += musics[i][0]+'\t';
-    html += musics[i][2]+'\t';
-    html += musics[i][3]+'\t';
+    html += musics[i].musicName+'\t';
+    html += musics[i].sourceName+'\t';
+    html += musics[i].performer+'\t';
     html += '\n';
   }
   
