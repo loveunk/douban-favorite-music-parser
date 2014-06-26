@@ -1,7 +1,7 @@
 /*
  js code for main.html
  
- Copyright (C) 2013 QI Wen <qiwen@qiwen.name>
+ Copyright (C) 2014 QI Wen <qiwen@qiwen.name>
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -17,17 +17,15 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function openDouban() {
-  chrome.extension.getBackgroundPage().musics = null;
-  chrome.extension.getBackgroundPage().musics = new Array();
-  chrome.extension.getBackgroundPage().resetDate(true);
-  chrome.tabs.create({"url":"http://douban.fm/mine#!type=liked&start=0", "selected":true});
+function grab_liked() {
+	var backg = chrome.extension.getBackgroundPage();
+	backg.start(true);
 }
 
-function clickHandler(e) {
-  openDouban();
+function grab_banned() {
+	var backg = chrome.extension.getBackgroundPage();
+	backg.start(false);
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelector('input').addEventListener('click', clickHandler);
-});
+document.getElementById("liked").onclick = grab_liked;
+document.getElementById("banned").onclick = grab_banned;
