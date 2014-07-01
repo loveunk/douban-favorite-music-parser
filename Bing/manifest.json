@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self' ; object-src 'self' ",
+  "name": "Bing Rewards Helper",
+  "version": "14.7.1.0",
+  "description": "Bing Rewards Helper",
+  "icons": {
+    "32": "Bing.32.png",
+    "48": "Bing.48.png",
+    "128": "Bing.128.png"
+  },
+  "browser_action": {
+    "default_title": "Bing Rewards Helper",
+    "default_icon": "Bing.128.png"
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "permissions": ["tabs", "*://*.bing.com/*"]
+}
