@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       @import "media/css/TableTools.css";
 		</style>
     <script type="text/javascript" language="javascript" src="media/js/jquery.js"></script>
+    <script type="text/javascript" language="javascript" src="FileSaver.min.js"></script>
     <script type="text/javascript" language="javascript" src="utility.js"></script>
     <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript" src="media/js/TableTools.min.js"></script>
@@ -43,14 +44,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           <h2>共找到<strong id="music_num"></strong>首歌曲</h2>
         </div>
         <p>
-          使用中遇到问题，欢迎联系作者 QI Wen qiwen@qiwen.name 寻求帮助）
+          使用中遇到问题，欢迎联系作者 (qiwen@qiwen.name) 寻求帮助）
         </p>
         
         <p>
           <input type="button" class="resultButton" value="仅歌曲名" id="chooseColBtn" />
           <input type="button" class="resultButton" value="导出数据" id="popResultBtn" /> <!-- selectElementContents('table_result')" -->
-          (导出到Excel或者文本中；
-          结合<a href="https://www.google.com.hk/search?hl=zh-CN&newwindow=1&q=E音乐盒&oq=E音乐盒" target="_blank">E音乐盒</a>，批量下载)
+          (导出到Excel或者文本中)
+          <input type="button" class="resultButton" value="导出酷我音乐列表" id="forWangYiYunBtn" />(此列表可导入网易云音乐)
         </p>
 
         <table id="result"> <!-- style="width:100%"> -->

@@ -71,17 +71,48 @@ function fnShowHide() {
 }
 
 function popResult() {
-  var musics = chrome.extension.getBackgroundPage().musics;
-  var html  = '';
+    var musics = chrome.extension.getBackgroundPage().musics;
+  var text  = '';
   
   for (var i = 0; i < musics.length; ++i) {
-    html += musics[i].musicName+'\t';
-    html += musics[i].sourceName+'\t';
-    html += musics[i].performer+'\t';
-    html += '\n';
+    text += musics[i].musicName+'\t';
+    text += musics[i].sourceName+'\t';
+    text += musics[i].performer+'\t';
+    text += '\n';
   }
+  var blob = new Blob([text], {type: "text/plain;charset=GBK"});
+  saveAs(blob, "musicList.txt");
   
   //height=250, width=250,
+  //var popup = window.open("", "newwin", "toolbar=no,scrollbars=yes,menubar=no");
+  //popup.document.write("<text>");
+  //popup.document.write("<head>");
+  //popup.document.write("<title>请复制<\/title>");
+  //popup.document.write("<style type='text\/css' title='currentStyle'>@import \"main.css\";<\/style>");
+  //popup.document.write("<script type='text\/javascript' language='javascript' src='utility.js'><\/script>");
+  //popup.document.write("<\/head>");
+  //popup.document.write("<body");
+  //popup.document.write("<p>请复制下面的内容，之后导出到Excel或者记事本等文本编辑器中<\/p>");
+  //popup.document.write("<textarea id='music_data' style='width:100%; height:90%;'>" + text + "<\/textarea>");
+  //popup.document.write("<\/body>");
+  //popup.document.write("<\/text>"); 
+  //popup.document.close();
+}
+
+function saveForWangYiYun() {
+  var musics = chrome.extension.getBackgroundPage().musics;
+  var text  = '<so>\n';
+
+  for (var i = 0; i < musics.length; ++i) {
+    text += '    <so name="';
+    text += musics[i].musicName;
+    text += '" artist="';
+    text += musics[i].performer;
+    text += '"></so>\n';
+  }
+  text += '</so>';
+
+  // 
   var popup = window.open("", "newwin", "toolbar=no,scrollbars=yes,menubar=no");
   popup.document.write("<html>");
   popup.document.write("<head>");
@@ -90,16 +121,25 @@ function popResult() {
   popup.document.write("<script type='text\/javascript' language='javascript' src='utility.js'><\/script>");
   popup.document.write("<\/head>");
   popup.document.write("<body");
-  popup.document.write("<p>请复制下面的内容，之后导出到Excel或者记事本等文本编辑器中<\/p>");
-  popup.document.write("<textarea id='music_data' style='width:100%; height:90%;'>" + html + "<\/textarea>");
+  popup.document.write("<p>1. 复制下面的内容，保存为“酷我音乐列表文件”，文件名以.kwl结尾，例如“musicList.kwl”<\/p>");
+  popup.document.write("<p>** 注意：酷我音乐列表目前采用的是GB2322编码格式，Windows下采用“记事本”保存测试可以，其他平台注意转换编码<\/p>");
+  popup.document.write("<p>2. 在网易云音乐“导入歌单”界面，点选“导入酷我播放列表”，再选择刚刚保存的“musicList.kwl”<\/p>");
+  popup.document.write("<textarea id='music_data' style='width:100%; height:90%;'>" + text + "<\/textarea>");
   popup.document.write("<\/body>");
   popup.document.write("<\/html>"); 
   popup.document.close();
+  
+  // TODO: use blob to download the music file list. UTF-8 --> GB2322. Since kwl file is encoded with GB2322
+  //var uint8array = new TextEncoder('utf-8').encode(text);
+  //var string = UTF8.decode(); //new TextDecoder('GB2322').decode(uint8array);
+  //var blob = new Blob([string], {type: "text/plain;charset=GB2322"});
+  //saveAs(blob, "2.kwl");
 }
 
 document.addEventListener('DOMContentLoaded', function () {
   onPageLoaded();
   document.querySelector('#chooseColBtn').addEventListener('click', fnShowHide);
   document.querySelector('#popResultBtn').addEventListener('click', popResult);
+  document.querySelector('#forWangYiYunBtn').addEventListener('click', saveForWangYiYun);
 });
 
