@@ -55,8 +55,10 @@ function messageListener(port) {
 
         if (musics.length < info.total) {
             var url = "http://douban.fm/mine#!type="+(liked_or_banned?"liked":"banned")+"&start="+nextStartFrom;
-            chrome.tabs.remove(tab.id);
-			chrome.tabs.create({"url" : url}, pageLoaded);
+			setTimeout(function(){
+            	chrome.tabs.remove(tab.id);
+			    chrome.tabs.create({"url" : url}, pageLoaded);
+            }, 5000);
         } else {
             chrome.tabs.remove(tab.id)
 			chrome.tabs.create({"url" : "result.html"});
