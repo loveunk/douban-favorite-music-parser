@@ -21,30 +21,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>抓取结果</title>
     <style type="text/css" title="currentStyle">
-			@import "main.css";
+			@import "css/main.css";
 			@import "media/css/demo_page.css";
 			@import "media/css/demo_table.css";
       @import "media/css/TableTools.css";
 		</style>
     <script type="text/javascript" language="javascript" src="media/js/jquery.js"></script>
-    <script type="text/javascript" language="javascript" src="FileSaver.min.js"></script>
-    <script type="text/javascript" language="javascript" src="utility.js"></script>
+    <script type="text/javascript" language="javascript" src="js/FileSaver.min.js"></script>
+    <script type="text/javascript" language="javascript" src="js/utility.js"></script>
     <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript" src="media/js/TableTools.min.js"></script>
-    <script type="text/javascript" language="javascript" src="result.js"></script>
+    <script type="text/javascript" language="javascript" src="js/result.js"></script>
   </head>
   
   <body>
     <div class="logo">
-      <a href="http://douban.fm"><img width="131" height="54" src="fm_logoV1.png"></a>
+      <a href="http://douban.fm"><img width="131" height="54" src="img/fm_logoV1.png"></a>
     </div>
     <div id="hint" align="left">
       <div id="succ" class="hide">
         <div>
-          <h2>共找到<strong id="music_num"></strong>首歌曲</h2>
+          <h2>共找到<strong id="music_num"></strong>首歌曲（点积歌名的链接可以直接试听/下载）</h2>
         </div>
         <p>
-          使用中遇到问题，欢迎联系作者 (qiwen@qiwen.name) 寻求帮助）
+          使用中遇到问题，欢迎<a href="mailto:qiwen@qiwen.name?subject=Douban parser Bug report"> 联系作者 </a>寻求帮助 或者在
+          <a href="https://github.com/loveunk/douban-favorite-music-parser" target="_blank"><u>Github</u></a>上提交Bug。）
         </p>
         
         <p>
@@ -67,14 +68,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         </table>
       </div>
       <div id="fail" class="hide">
-        <h2>很遗憾，没有找到您收藏的歌曲 :(</h2>
+        <h2>很遗憾，没有找到收藏的歌曲 :(</h2>
 
         <h4>有如下的可能哦 :</h4>
 
-        <div>1. 您没登录豆瓣电台（请<a href="http://douban.fm">登录</a>后重试）</div>
+        <div>1. 没登录豆瓣电台（请<a href="http://douban.fm">登录</a>后重试）</div>
         <br>
 
-        <div>2. 程序出错了。（欢迎联系作者 QI Wen <a href="mailto:qiwen@qiwen.name?subject=Douban parser Bug report">qiwen@qiwen.name</a> 寻求帮助）</div>
+        <div>2. 程序出错了。（欢迎<a href="mailto:qiwen@qiwen.name?subject=Douban parser Bug report"> 联系作者 </a> 寻求帮助），或者<a href="https://github.com/loveunk/douban-favorite-music-parser" target="_blank"><u>Github</u></a>上提交Bug。</div>
       </div>
     </div>
   </body>

@@ -17,14 +17,23 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+function wrap_url_tag_to_str(str, url) {
+  if (url == null || url == '#') {
+    return str;
+  }
+
+  return '<a href="' + url +'" target="_blank">' + str + '</a>';
+}
+
 function getFullResult() {
   var musics = chrome.extension.getBackgroundPage().musics;
   var html  = '';
   
   for (var i = 0; i < musics.length; ++i) {
-    html += '<tr><td>'+musics[i].musicName+'</td>';
-    html += '<td><a href="'+musics[i].sourceURL+'">'+musics[i].sourceName+'</a></td>';
-    html += '<td>'+musics[i].performer+'</td>';
+    html += '<tr>';
+    html += '<td>' + wrap_url_tag_to_str(musics[i].musicName, musics[i].musicURL) + '</td>';
+    html += '<td>' + wrap_url_tag_to_str(musics[i].sourceName, musics[i].sourceURL) + '</td>';
+    html += '<td>' + wrap_url_tag_to_str(musics[i].performer, 'https://music.douban.com/search?q='+musics[i].performer) + '</td>';
     html += '</tr>';
   }
   document.getElementById("table_result").innerHTML = html;
@@ -71,7 +80,7 @@ function fnShowHide() {
 }
 
 function popResult() {
-    var musics = chrome.extension.getBackgroundPage().musics;
+  var musics = chrome.extension.getBackgroundPage().musics;
   var text  = '';
   
   for (var i = 0; i < musics.length; ++i) {
@@ -82,21 +91,6 @@ function popResult() {
   }
   var blob = new Blob([text], {type: "text/plain;charset=GBK"});
   saveAs(blob, "musicList.txt");
-  
-  //height=250, width=250,
-  //var popup = window.open("", "newwin", "toolbar=no,scrollbars=yes,menubar=no");
-  //popup.document.write("<text>");
-  //popup.document.write("<head>");
-  //popup.document.write("<title>请复制<\/title>");
-  //popup.document.write("<style type='text\/css' title='currentStyle'>@import \"main.css\";<\/style>");
-  //popup.document.write("<script type='text\/javascript' language='javascript' src='utility.js'><\/script>");
-  //popup.document.write("<\/head>");
-  //popup.document.write("<body");
-  //popup.document.write("<p>请复制下面的内容，之后导出到Excel或者记事本等文本编辑器中<\/p>");
-  //popup.document.write("<textarea id='music_data' style='width:100%; height:90%;'>" + text + "<\/textarea>");
-  //popup.document.write("<\/body>");
-  //popup.document.write("<\/text>"); 
-  //popup.document.close();
 }
 
 function saveForWangYiYun() {
@@ -117,8 +111,8 @@ function saveForWangYiYun() {
   popup.document.write("<html>");
   popup.document.write("<head>");
   popup.document.write("<title>请复制<\/title>");
-  popup.document.write("<style type='text\/css' title='currentStyle'>@import \"main.css\";<\/style>");
-  popup.document.write("<script type='text\/javascript' language='javascript' src='utility.js'><\/script>");
+  popup.document.write("<style type='text\/css' title='currentStyle'>@import \"css/main.css\";<\/style>");
+  popup.document.write("<script type='text\/javascript' language='javascript' src='js/utility.js'><\/script>");
   popup.document.write("<\/head>");
   popup.document.write("<body");
   popup.document.write("<p>1. 复制下面的内容，保存为“酷我音乐列表文件”，文件名以.kwl结尾，例如“musicList.kwl”<\/p>");

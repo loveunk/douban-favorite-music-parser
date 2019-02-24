@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <title>欢迎使用</title>
     <style type="text/css">
       body {
-        margin: 10px auto 5px auto;
-        width:  390px;
+        margin: 50px auto 50px auto;
+        width:  300px;
         vertical-align: middle;
         color:  #666;
         font: 110% Arial, Helvetica, sans-serif;
@@ -53,10 +53,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </head>
   <body>
     <div id="parseHTML"></div>
-    <input id="liked" type="button" value="红心歌曲">
-    <input id="banned" type="button" value="垃圾桶歌曲"><br><br>
-    <div>抓取的过程中，浏览器会闪烁，属于正常现象。</div>
-    <div>如果歌曲较多，需要等待几分钟的时间。</div>
-    <script src="main.js"></script>
+    <p align="center">
+      <input id="liked" type="button" value="抓取红心歌曲">
+    </p>
+    <p align="center">
+    <div style="font-size: small" align="center">取决于网速和歌曲数量，需要等待数秒的时间。</div>
+    <div style="font-size: small" align="center">如果超过1分钟仍无结果，请联系汇报异常。</div>
+    </p>
+    <script src="js/main.js"></script>
   </body>
 </html>

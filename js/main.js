@@ -19,6 +19,8 @@
 
 function grab_liked() {
 	var backg = chrome.extension.getBackgroundPage();
+  document.getElementById("liked").value = "开始努力工作中...(勿刷新)";
+  document.getElementById("liked").disabled = true;
 	backg.start(true);
 }
 
@@ -28,4 +30,5 @@ function grab_banned() {
 }
 
 document.getElementById("liked").onclick = grab_liked;
-document.getElementById("banned").onclick = grab_banned;
+document.getElementById("liked").disabled = false;
+// document.getElementById("banned").onclick = grab_banned;
