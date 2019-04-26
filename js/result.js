@@ -93,6 +93,18 @@ function popResult() {
   saveAs(blob, "musicList.txt");
 }
 
+function exportMP3Links() {
+  var musics = chrome.extension.getBackgroundPage().musics;
+  var text  = '';
+  
+  for (var i = 0; i < musics.length; ++i) {
+    text += musics[i].musicURL;
+    text += '\n';
+  }
+  var blob = new Blob([text], {type: "text/plain;charset=GBK"});
+  saveAs(blob, "DoubanMusicLinks.txt");
+}
+
 function saveForWangYiYun() {
   var musics = chrome.extension.getBackgroundPage().musics;
   var text  = '<so>\n';
@@ -134,6 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
   onPageLoaded();
   document.querySelector('#chooseColBtn').addEventListener('click', fnShowHide);
   document.querySelector('#popResultBtn').addEventListener('click', popResult);
+  document.querySelector('#exportMP3Links').addEventListener('click', exportMP3Links);
   document.querySelector('#forWangYiYunBtn').addEventListener('click', saveForWangYiYun);
 });
 

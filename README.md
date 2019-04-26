@@ -8,7 +8,7 @@
 
 因为豆瓣电台经常变更网站样式或是数据获取方式，导致需要经常适配JavaScript code，如果你发现Bug
 * 请在这里提交Issue，或
-* 或者你已经fix可以直接submit pull request (preferred >_<)
+* 或者你已经fix可以直接submit pull request (preferred)
 
 ---
 ![豆瓣电台爬虫结果截图](img/screencut.png)
@@ -28,7 +28,6 @@
 3. 点击窗口的按钮。然后等待程序运行完毕（如果您有几千首加❤歌曲的话，可能需要几分钟的时间）
 4. 如果一切顺利，会出现一个歌曲列表。您把列表中的内容，copy & paste到您的本地即可（比如Excel，记事本）。
 ** 也可以导出“酷我音乐列表”，此列表可导入“网易云音乐”
-
 
 ---
 ## Changelog
@@ -58,3 +57,7 @@
 
 -- update 2011/5/26
 今天发现一个问题，如果是从www.douban.com登录的豆瓣，然后直接使用这个扩展，会提示没有登录，您可以打开douban.fm登录后重试
+
+## Thanks
+
+![](img/wechat.zan.jpg)
