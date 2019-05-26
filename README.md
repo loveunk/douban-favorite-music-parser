@@ -1,14 +1,14 @@
 # 豆瓣电台加心歌曲爬虫 ❤
 
-这是一个维护了很多年的Chrome插件，用来获取完整的豆瓣加心歌曲（也就是你收藏的那些）列表，并以列表的形式呈现。
+这是一个维护了很多年的Chrome插件，用来获取完整的豆瓣加心歌曲（就是你收藏的那些歌曲）列表，并以列表的形式呈现。
 
-支持列表导出，试听下载等.. 简单易用，只用点一下按键，希望能帮到你。
+支持：
+* 加星歌曲列表导出
+* 歌曲列表试听、下载
+
+操作简单易用，希望能帮到你。
 
 [Chrome Store 插件安装地址](https://chrome.google.com/webstore/detail/%E8%B1%86%E7%93%A3%E7%94%B5%E5%8F%B0%E7%88%AC%E8%99%AB%EF%BC%88%E5%8A%A0%E6%98%9F%E6%AD%8C%E6%9B%B2%E5%88%97%E8%A1%A8%E5%AF%BC%E5%87%BA%EF%BC%89/biegmkgmmglpkeapmlkfpbihllbplaef?hl=zh-CN)
-
-因为豆瓣电台经常变更网站样式或是数据获取方式，导致需要经常适配JavaScript code，如果你发现Bug
-* 请在这里提交Issue，或
-* 或者你已经fix可以直接submit pull request (preferred)
 
 ---
 ![豆瓣电台爬虫结果截图](img/screencut.png)
@@ -30,7 +30,15 @@
 ** 也可以导出“酷我音乐列表”，此列表可导入“网易云音乐”
 
 ---
+因为豆瓣电台经常变更网站样式或是数据获取方式，导致需要重新适配JavaScript code，如果你发现问题：
+* 请在这里提交Issue，或
+* 或者你已经fix可以直接submit pull request (preferred)
+
+---
 ## Changelog
+-- update 2019/4/26
+有朋友反映酷我/酷狗列表都已不能正常导入，测试后验证如此，因此更新以支持迅雷下载后导入网易音乐
+
 -- update 2019/2/24
 很久没更新了，发现豆瓣又又又更新了它的加❤歌曲的呈现和获取方式，于是重新适配
 
